@@ -1,5 +1,8 @@
-﻿using WebApp.UseCases.Interfaces;
+using WebApp.UseCases.Interfaces;
 using WebApp.UseCases.ProductCases.Interfaces;
+using WebApp.Exceptions;
+using ErrorOr;
+using WebApp.Models;
 
 namespace WebApp.UseCases.ProductCases
 {
@@ -11,9 +14,27 @@ namespace WebApp.UseCases.ProductCases
       _productRepository = productRepository;
     }
 
-    public async Task ExecuteAsync()
+    public async Task<ErrorOr<Guid>> ExecuteAsync(Guid id, UpdateProductVM product)
     {
-      await Task.Delay(1000);
+      if (product == null)
+      {
+        return Errors.Product.ProductIsEmpty;
+      }
+
+      var existingProduct = await _productRepository.GetByIdAsync(id);
+      if (existingProduct == null)
+      {
+        return Errors.Product.NotFound;
+      }
+
+      existingProduct.Name = product.Name;
+      existingProduct.Description = product.Description;
+      existingProduct.CategoryId = product.CategoryId;
+
+      _productRepository.Update(existingProduct);
+
+      return existingProduct.Id;
     }
+
   }
 }

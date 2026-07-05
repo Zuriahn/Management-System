@@ -1,5 +1,7 @@
-﻿using WebApp.UseCases.Interfaces;
+using WebApp.UseCases.Interfaces;
 using WebApp.UseCases.ProductCases.Interfaces;
+using ErrorOr;
+using WebApp.Models;
 
 namespace WebApp.UseCases.ProductCases
 {
@@ -11,9 +13,19 @@ namespace WebApp.UseCases.ProductCases
       _productRepository = productRepository;
     }
 
-    public async Task ExecuteAsync()
+    public async Task<ErrorOr<List<ProductVM>>> ExecuteAsync()
     {
-      await Task.Delay(1000);
+      var products = await _productRepository.GetAllAsync();
+
+      var productVMs = products.Select(p => new ProductVM(
+        p.Id,
+        p.Name,
+        p.Description,
+        p.CategoryId
+      )).ToList();
+
+      return productVMs;
     }
+
   }
 }

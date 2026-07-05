@@ -1,5 +1,9 @@
-﻿using WebApp.UseCases.Interfaces;
+using WebApp.UseCases.Interfaces;
 using WebApp.UseCases.ProductCases.Interfaces;
+using WebApp.Exceptions;
+using ErrorOr;
+using WebApp.Entities;
+using WebApp.Models;
 
 namespace WebApp.UseCases.ProductCases
 {
@@ -11,9 +15,24 @@ namespace WebApp.UseCases.ProductCases
       _productRepository = productRepository;
     }
 
-    public async Task ExecuteAsync()
+    public async Task<ErrorOr<Guid>> ExecuteAsync(CreateProductVM product)
     {
-      await Task.Delay(1000);
+      if (product == null)
+      {
+        return Errors.Product.ProductIsEmpty;
+      }
+
+      var newProduct = new Product(
+          Guid.NewGuid(),
+          product.Name,
+          product.Description,
+          product.CategoryId
+        );
+
+      await _productRepository.AddAsync(newProduct);
+
+      return newProduct.Id;
     }
+
   }
 }

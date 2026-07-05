@@ -1,5 +1,7 @@
-﻿using WebApp.UseCases.Interfaces;
+using WebApp.UseCases.Interfaces;
 using WebApp.UseCases.ProductCases.Interfaces;
+using WebApp.Exceptions;
+using ErrorOr;
 
 namespace WebApp.UseCases.ProductCases
 {
@@ -11,9 +13,18 @@ namespace WebApp.UseCases.ProductCases
       _productRepository = productRepository;
     }
 
-    public async Task ExecuteAsync()
+    public async Task<ErrorOr<Guid>> ExecuteAsync(Guid id)
     {
-      await Task.Delay(1000);
+      var product = await _productRepository.GetByIdAsync(id);
+      if (product == null)
+      {
+        return Errors.Product.NotFound;
+      }
+
+      _productRepository.Disabled(product);
+
+      return product.Id;
     }
+
   }
 }
