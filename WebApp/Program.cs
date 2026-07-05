@@ -1,10 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using WebApp.EFConfiguration;
+using WebApp.Repositories;
+using WebApp.UseCases.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<ITicketRepository, TicketRepository>();
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IRoleRepository, RoleRepository>();
+builder.Services.AddTransient<IDepartmentRepository, DepartmentRepository>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
 

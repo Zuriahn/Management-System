@@ -16,6 +16,6 @@ namespace WebApp.Entities
     //relations
 
     //A one have many user and one user have one role
-    public ICollection<User>? Users { get; set; }
+    //public ICollection<User>? Users { get; set; }
   }
 }

@@ -11,8 +11,8 @@ namespace WebApp.Entities
         string lastName,
         DateOnly birthday,
         string jobTitle,
-        Guid roleId,
-        Guid departmentId
+        string role,
+        string department
       ) 
     {
       Id = id;
@@ -21,8 +21,8 @@ namespace WebApp.Entities
       LastName = lastName;
       Birthday = birthday;
       JobTitle = jobTitle;
-      RoleId = roleId;
-      DepartmentId = departmentId;
+      Role = role;
+      Department = department;
     }
 
     public Guid Id { get; set; }
@@ -31,6 +31,8 @@ namespace WebApp.Entities
     public string LastName { get; set; }
     public DateOnly Birthday { get; set; }
     public string JobTitle { get; set; }
+    public string Role { get; set; }
+    public string Department { get; set; }
 
     //relations
 
@@ -40,12 +42,12 @@ namespace WebApp.Entities
     public ICollection<Product>? Products { get; set; }
 
     //An user has one role but many roles are in many users
-    public Guid RoleId { get; set; }
-    public Role? Role { get; set; }
+    //public Guid RoleId { get; set; }
+    //public Role? Role { get; set; }
 
     //Many users are in one department and one department have many users
-    public Guid DepartmentId { get; set; }
-    public Department? Department { get; set; }
+    //public Guid DepartmentId { get; set; }
+    //public Department? Department { get; set; }
 
   }
 }

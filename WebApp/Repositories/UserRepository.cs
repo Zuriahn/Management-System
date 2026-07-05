@@ -1,4 +1,4 @@
-﻿using WebApp.Interfaces;
+﻿using WebApp.UseCases.Interfaces;
 using WebApp.EFConfiguration;
 using WebApp.Entities;
 using Microsoft.EntityFrameworkCore;

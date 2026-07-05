@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApp.EFConfiguration;
 using WebApp.Entities;
-using WebApp.Interfaces;
+using WebApp.UseCases.Interfaces;
 
 namespace WebApp.Repositories
 {
-  public class CategoryRepository : ICategoryRepository
+  public class CategoryRepository : ICategoryRepository 
   {
     private readonly ApplicationDbContext _applicationDbContext;
 

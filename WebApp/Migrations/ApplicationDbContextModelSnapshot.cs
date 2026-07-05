@@ -276,8 +276,9 @@ namespace WebApp.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("DepartmentId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("Department")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -302,8 +303,9 @@ namespace WebApp.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -313,12 +315,8 @@ namespace WebApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
-
                     b.HasIndex("Email")
                         .IsUnique();
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("Users", (string)null);
                 });
@@ -372,43 +370,14 @@ namespace WebApp.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebApp.Entities.User", b =>
-                {
-                    b.HasOne("WebApp.Entities.Department", "Department")
-                        .WithMany("Users")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApp.Entities.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-
-                    b.Navigation("Role");
-                });
-
             modelBuilder.Entity("WebApp.Entities.Category", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("WebApp.Entities.Department", b =>
-                {
-                    b.Navigation("Users");
-                });
-
             modelBuilder.Entity("WebApp.Entities.Product", b =>
                 {
                     b.Navigation("Tickets");
-                });
-
-            modelBuilder.Entity("WebApp.Entities.Role", b =>
-                {
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("WebApp.Entities.User", b =>

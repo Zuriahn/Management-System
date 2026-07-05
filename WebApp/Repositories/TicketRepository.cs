@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApp.EFConfiguration;
 using WebApp.Entities;
-using WebApp.Interfaces;
+using WebApp.UseCases.Interfaces;
 
 namespace WebApp.Repositories
 {

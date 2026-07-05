@@ -16,7 +16,7 @@ namespace WebApp.Entities
     //relations
    
     //A department have many user and one user own by one department
-    public ICollection<User>? Users { get; set; } 
+    //public ICollection<User>? Users { get; set; } 
     
   }
 }
