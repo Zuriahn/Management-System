@@ -1,5 +1,7 @@
-﻿using WebApp.UseCases.CategoryCases.Interfaces;
+using WebApp.UseCases.CategoryCases.Interfaces;
 using WebApp.UseCases.Interfaces;
+using ErrorOr;
+using WebApp.Models;
 
 namespace WebApp.UseCases.CategoryCases
 {
@@ -11,9 +13,17 @@ namespace WebApp.UseCases.CategoryCases
       _categoryRepository = categoryRepository;
     }
 
-    public async Task ExecuteAsync()
+    public async Task<ErrorOr<List<CategoryVM>>> ExecuteAsync()
     {
-      await Task.Delay(1000);
+      var categories = await _categoryRepository.GetAllAsync();
+
+      var categoryVMs = categories.Select(c => new CategoryVM(
+        c.Id,
+        c.Name
+      )).ToList();
+
+      return categoryVMs;
     }
+
   }
 }

@@ -1,5 +1,9 @@
-﻿using WebApp.UseCases.CategoryCases.Interfaces;
+using WebApp.UseCases.CategoryCases.Interfaces;
 using WebApp.UseCases.Interfaces;
+using WebApp.Exceptions;
+using ErrorOr;
+using WebApp.Entities;
+using WebApp.Models;
 
 namespace WebApp.UseCases.CategoryCases
 {
@@ -11,9 +15,22 @@ namespace WebApp.UseCases.CategoryCases
       _categoryRepository = categoryRepository;
     }
 
-    public async Task ExecuteAsync()
+    public async Task<ErrorOr<Guid>> ExecuteAsync(CreateCategoryVM category)
     {
-      await Task.Delay(1000);
+      if (category == null)
+      {
+        return Errors.Category.CategoryIsEmpty;
+      }
+
+      var newCategory = new Category(
+          Guid.NewGuid(),
+          category.Name
+        );
+
+      await _categoryRepository.AddAsync(newCategory);
+
+      return newCategory.Id;
     }
+
   }
 }

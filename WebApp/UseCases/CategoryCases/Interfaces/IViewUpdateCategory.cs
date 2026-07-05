@@ -1,7 +1,10 @@
-﻿namespace WebApp.UseCases.CategoryCases.Interfaces
+using ErrorOr;
+using WebApp.Models;
+
+namespace WebApp.UseCases.CategoryCases.Interfaces
 {
   public interface IViewUpdateCategory
   {
-    public Task ExecuteAsync();
+    public Task<ErrorOr<Guid>> ExecuteAsync(Guid id, UpdateCategoryVM category);
   }
 }
