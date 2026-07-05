@@ -1,10 +1,10 @@
-﻿using ErrorOr;
+using ErrorOr;
 using WebApp.Models;
 
 namespace WebApp.UseCases.UserCases.Interfaces
 {
   public interface IViewGetAllUsers
   {
-    public Task ExecuteAsync();
+    public Task<ErrorOr<List<UserVM>>> ExecuteAsync();
   }
 }

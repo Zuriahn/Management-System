@@ -1,18 +1,15 @@
-﻿using WebApp.Common;
-
 namespace WebApp.Models
 {
-  public class CreateUserVM
+  public class UpdateUserVM
   {
-    public CreateUserVM(
+    public UpdateUserVM(
       string email,
       string name,
       string lastName,
       DateOnly birthday,
       string jobTitle,
       string role,
-      string department,
-      string password
+      string department
     )
     {
       Email = email;
@@ -22,7 +19,6 @@ namespace WebApp.Models
       JobTitle = jobTitle;
       Role = role;
       Department = department;
-      Password = password;
     }
 
     public string Email { get; set; }
@@ -32,7 +28,6 @@ namespace WebApp.Models
     public string JobTitle { get; set; }
     public string Role { get; set; }
     public string Department { get; set; }
-    public string Password { get; set; }
 
   }
 }

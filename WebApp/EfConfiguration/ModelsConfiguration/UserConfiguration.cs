@@ -22,6 +22,8 @@ namespace WebApp.EFConfiguration.ModelsConfiguration
 
       builder.Property(u => u.JobTitle).HasMaxLength(50);
 
+      builder.Property(u => u.Password).HasMaxLength(100);
+
       //builder.Property(u => u.RoleId).IsRequired();
 
       //builder.Property(u => u.DepartmentId).IsRequired();

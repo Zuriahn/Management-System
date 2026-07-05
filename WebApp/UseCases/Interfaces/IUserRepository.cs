@@ -11,6 +11,9 @@ namespace WebApp.UseCases.Interfaces
     public void Disabled(User user);
 
     public Task<User?> GetByIdAsync(Guid id);
+
+    public Task<User?> GetByEmailAsync(string email);
+
     public Task<List<User>> GetAllAsync();
 
   }

@@ -35,6 +35,11 @@ namespace WebApp.Repositories
       return await _applicationDbContext.Users.SingleOrDefaultAsync(u => u.Id == id);
     }
 
+    public async Task<User?> GetByEmailAsync(string email)
+    {
+      return await _applicationDbContext.Users.SingleOrDefaultAsync(u => u.Email == email);
+    }
+
     public async Task<List<User>> GetAllAsync()
     {
       return await _applicationDbContext.Users.AsNoTracking().ToListAsync();

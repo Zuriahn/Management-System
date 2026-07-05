@@ -1,4 +1,4 @@
-﻿using WebApp.Models;
+using WebApp.Models;
 using WebApp.UseCases.Interfaces;
 using WebApp.Exceptions;
 using ErrorOr;
@@ -22,6 +22,14 @@ namespace WebApp.UseCases.UserCases
         return Errors.User.UserIsEmpty;
       }
 
+      var existingUser = await _userRepository.GetByEmailAsync(user.Email);
+      if (existingUser != null)
+      {
+        return Errors.User.DuplicateEmail;
+      }
+
+      var hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
       var newUser = new User(
           Guid.NewGuid(),
           user.Email,
@@ -30,12 +38,11 @@ namespace WebApp.UseCases.UserCases
           user.Birthday,
           user.JobTitle,
           user.Role,
-          user.Department
+          user.Department,
+          hashedPassword
         );
 
-      await _userRepository.AddAsync( newUser );
-
-      await Task.Delay(1000);
+      await _userRepository.AddAsync(newUser);
 
       return newUser.Id;
     }

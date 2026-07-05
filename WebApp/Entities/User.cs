@@ -12,7 +12,8 @@ namespace WebApp.Entities
         DateOnly birthday,
         string jobTitle,
         string role,
-        string department
+        string department,
+        string password
       ) 
     {
       Id = id;
@@ -23,6 +24,7 @@ namespace WebApp.Entities
       JobTitle = jobTitle;
       Role = role;
       Department = department;
+      Password = password;
     }
 
     public Guid Id { get; set; }
@@ -33,6 +35,7 @@ namespace WebApp.Entities
     public string JobTitle { get; set; }
     public string Role { get; set; }
     public string Department { get; set; }
+    public string Password { get; set; }
 
     //relations
 

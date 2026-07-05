@@ -1,7 +1,10 @@
-﻿namespace WebApp.UseCases.UserCases.Interfaces
+using ErrorOr;
+using WebApp.Models;
+
+namespace WebApp.UseCases.UserCases.Interfaces
 {
-  public interface IViewLoginUSerByCredentials
+  public interface IViewLoginUserByCredentials
   {
-    public Task ExecuteAsync();
+    public Task<ErrorOr<Guid>> ExecuteAsync(LoginUserVM credentials);
   }
 }
