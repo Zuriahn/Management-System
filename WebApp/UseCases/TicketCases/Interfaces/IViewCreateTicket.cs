@@ -1,7 +1,10 @@
-﻿namespace WebApp.UseCases.TicketCases.Interfaces
+using ErrorOr;
+using WebApp.Models;
+
+namespace WebApp.UseCases.TicketCases.Interfaces
 {
   public interface IViewCreateTicket
   {
-    public Task ExecuteAsync();
+    public Task<ErrorOr<Guid>> ExecuteAsync(CreateTicketVM ticket);
   }
 }

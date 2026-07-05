@@ -1,7 +1,10 @@
-﻿namespace WebApp.UseCases.RoleCases.Interfaces
+using ErrorOr;
+using WebApp.Models;
+
+namespace WebApp.UseCases.RoleCases.Interfaces
 {
   public interface IViewGetAllRoles
   {
-    public Task ExecuteAsync();
+    public Task<ErrorOr<List<RoleVM>>> ExecuteAsync();
   }
 }

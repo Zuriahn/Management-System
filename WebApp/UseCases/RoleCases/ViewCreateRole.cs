@@ -1,5 +1,9 @@
-﻿using WebApp.UseCases.Interfaces;
+using WebApp.UseCases.Interfaces;
 using WebApp.UseCases.RoleCases.Interfaces;
+using WebApp.Exceptions;
+using ErrorOr;
+using WebApp.Entities;
+using WebApp.Models;
 
 namespace WebApp.UseCases.RoleCases
 {
@@ -11,9 +15,22 @@ namespace WebApp.UseCases.RoleCases
       _roleRepository = roleRepository;
     }
 
-    public async Task ExecuteAsync()
+    public async Task<ErrorOr<Guid>> ExecuteAsync(CreateRoleVM role)
     {
-      await Task.Delay(1000);
+      if (role == null)
+      {
+        return Errors.Role.RoleIsEmpty;
+      }
+
+      var newRole = new Role(
+          Guid.NewGuid(),
+          role.Name
+        );
+
+      await _roleRepository.AddAsync(newRole);
+
+      return newRole.Id;
     }
+
   }
 }

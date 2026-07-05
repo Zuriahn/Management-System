@@ -1,4 +1,4 @@
-﻿using WebApp.Entities;
+using WebApp.Entities;
 
 namespace WebApp.UseCases.Interfaces
 {
@@ -10,8 +10,8 @@ namespace WebApp.UseCases.Interfaces
 
     public void Disabled(Role role);
 
-    //public Task<Role?> GetByIdAsync(Guid id);
-    //public Task<List<Role>> GetAllAsync();
+    public Task<Role?> GetByIdAsync(Guid id);
+    public Task<List<Role>> GetAllAsync();
 
   }
 }

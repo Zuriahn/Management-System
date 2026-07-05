@@ -1,5 +1,7 @@
-﻿using WebApp.UseCases.Interfaces;
+using WebApp.UseCases.Interfaces;
 using WebApp.UseCases.RoleCases.Interfaces;
+using ErrorOr;
+using WebApp.Models;
 
 namespace WebApp.UseCases.RoleCases
 {
@@ -11,9 +13,17 @@ namespace WebApp.UseCases.RoleCases
       _roleRepository = roleRepository;
     }
 
-    public async Task ExecuteAsync()
+    public async Task<ErrorOr<List<RoleVM>>> ExecuteAsync()
     {
-      await Task.Delay(1000);
+      var roles = await _roleRepository.GetAllAsync();
+
+      var roleVMs = roles.Select(r => new RoleVM(
+        r.Id,
+        r.Name
+      )).ToList();
+
+      return roleVMs;
     }
+
   }
 }

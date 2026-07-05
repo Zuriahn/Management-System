@@ -1,5 +1,8 @@
-﻿using WebApp.UseCases.Interfaces;
+using WebApp.UseCases.Interfaces;
 using WebApp.UseCases.TicketCases.Interfaces;
+using WebApp.Exceptions;
+using ErrorOr;
+using WebApp.Models;
 
 namespace WebApp.UseCases.TicketCases
 {
@@ -11,9 +14,27 @@ namespace WebApp.UseCases.TicketCases
       _ticketRepository = ticketRepository;
     }
 
-    public async Task ExecuteAsync()
+    public async Task<ErrorOr<TicketVM>> ExecuteAsync(Guid id)
     {
-      await Task.Delay(1000);
+      var ticket = await _ticketRepository.GetByIdAsync(id);
+      if (ticket == null)
+      {
+        return Errors.Ticket.NotFound;
+      }
+
+      var ticketVM = new TicketVM(
+        ticket.Id,
+        ticket.Title,
+        ticket.Description,
+        ticket.ReviewDate,
+        ticket.ReviewAnswer,
+        ticket.IsClosed,
+        ticket.UserId,
+        ticket.ProductId
+      );
+
+      return ticketVM;
     }
+
   }
 }
